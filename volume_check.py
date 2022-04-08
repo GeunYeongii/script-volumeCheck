@@ -1,41 +1,5 @@
 import os,re,codecs
 from this import d
-import requests
-from bs4 import BeautifulSoup
-
-# write file
-season = input("회차를 입력하세요 >> ")
-url = f'https://fangj.github.io/friends/season/{season}.html'
-response = requests.get(url)
-soup = BeautifulSoup(response.text, 'html.parser')
-
-p = soup.find_all('p')
-
-f = open(os.path.expanduser("friends-script.txt"),"w")
-sum = 0
-for i in p :
-    if i.text.startswith('End') == 0 and i.text.startswith('[') == 0 and i.text.startswith('(') == 0 and i.text.startswith('Originally written by')==False:
-        f.write(i.text.replace('\n',' '))
-        f.write("\n")
-        sum += len(i.text)
-f.close()
-
-if sum < 100 :
-    br = soup.find_all(text=True)
-
-    f = open(os.path.expanduser("friends-script.txt"),"w")
-    sum = 0
-    for i in br :
-        if i.text.startswith('End') == 0 and i.text.startswith('[') == 0 and i.text.startswith('(') == 0 and i.text.startswith('Originally written by')==False:
-            f.write(i.text.replace('\n',' '))
-            f.write("\n")
-            sum += len(i.text)
-    f.close()
-    
-
-
-    
-
 
 # read file
 f = open(os.path.expanduser("friends-script.txt"))
